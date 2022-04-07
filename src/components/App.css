@@ -1,0 +1,16 @@
+main {
+  text-align: center;
+  vertical-align: center;
+  line-height: 100vh;
+}
+
+.result {
+  background-color: #F9F4F5;
+  border-color: #502F4C;
+  border-style: solid;
+  height: 60px;
+  width: 275px;
+  text-align: right;
+  font-size: 50px;
+  padding-right: 10px;
+}
