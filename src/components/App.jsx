@@ -2,239 +2,228 @@ import React from 'react';
 import './App.css';
 
 class Result extends React.Component {
-	render() {
-		return <div className="result">{this.props.value}</div>;
-	}
+  render() {
+    return <div className="result">{this.props.value}</div>;
+  }
 }
 
 class Clear extends React.Component {
-	render() {
-		return (
-			<button
-				style={{
-					backgroundColor: '#F9F4F5',
-					color: 'black',
-					borderColor: '#502F4C',
-					height: '70px',
-					width: '210px',
-					textAlign: 'center',
-					fontSize: '35px'
-				}}
-				onClick={this.props.onClickEvent}
-			>
-				clear
-			</button>
-		);
-	}
+  render() {
+    return (
+      <button
+        style={{
+          backgroundColor: '#F9F4F5',
+          color: 'black',
+          borderColor: '#502F4C',
+          height: '70px',
+          width: '210px',
+          textAlign: 'center',
+          fontSize: '35px'
+        }}
+        onClick={this.props.onClickEvent}
+      >
+        clear
+      </button>
+    );
+  }
 }
 
 class Numbers extends React.Component {
-	render() {
-		return (
-			<button
-				style={{
-					backgroundColor: '#70587C',
-					color: 'white',
-					borderColor: '#502F4C',
-					height: '70px',
-					width: '70px',
-					textAlign: 'center',
-					fontSize: '40px'
-				}}
-				onClick={() => this.props.onClickEvent(this.props.value)}
-			>
-				{this.props.value}
-			</button>
-		);
-	}
+  render() {
+    return (
+      <button className='number' onClick={() => this.props.onClickEvent(this.props.value)}>
+        {this.props.value}
+      </button>
+    );
+  }
 }
 
 class Operators extends React.Component {
-	render() {
-		return (
-			<button
-				style={{
-					backgroundColor: '#C8B8DB',
-					color: 'black',
-					borderColor: '502F4C',
-					height: '70px',
-					width: '70px',
-					textAlign: 'center',
-					fontSize: '50px'
-				}}
-				onClick={() => this.props.onClickEvent(this.props.sign)}
-			>
-				{this.props.sign}
-			</button>
-		);
-	}
+  render() {
+    return (
+      <button
+        style={{
+          backgroundColor: '#C8B8DB',
+          color: 'black',
+          borderColor: '502F4C',
+          height: '70px',
+          width: '70px',
+          textAlign: 'center',
+          fontSize: '50px'
+        }}
+        onClick={() => this.props.onClickEvent(this.props.sign)}
+      >
+        {this.props.sign}
+      </button>
+    );
+  }
 }
 
 class Calculator extends React.Component {
-	constructor(props) {
-		super(props);
-		this.handleClearClick = this.handleClearClick.bind(this);
-		this.handleNumberClick = this.handleNumberClick.bind(this);
-		this.handleSignClick = this.handleSignClick.bind(this);
-		this.state = {
-			result: 0,
-			newNumber: true,
-			firstNumber: null,
-			sign: false,
-			decimal: false
-		};
-	}
+  constructor(props) {
+    super(props);
+    this.handleClearClick = this.handleClearClick.bind(this);
+    this.handleNumberClick = this.handleNumberClick.bind(this);
+    this.handleSignClick = this.handleSignClick.bind(this);
+    this.state = {
+      result: 0,
+      newNumber: true,
+      firstNumber: null,
+      sign: false,
+      decimal: false
+    };
+  }
 
-	handleClearClick() {
-		this.setState({
-			result: 0,
-			newNumber: true,
-			firstNumber: null,
-			sign: null,
-			decimal: false
-		});
-	}
+  handleClearClick() {
+    this.setState({
+      result: 0,
+      newNumber: true,
+      firstNumber: null,
+      sign: null,
+      decimal: false
+    });
+  }
 
-	handleNumberClick(num) {
-		let prevNumbersClicked = this.state.result;
+  handleNumberClick(num) {
+    let prevNumbersClicked = this.state.result;
     if (this.state.newNumber && num != '.' && num != '+/-') {
-			this.setState({
-				result: num,
-				newNumber: false
-			});
-		} else if (num === '.' && !this.state.decimal) {
-			this.setState({
-				result: prevNumbersClicked + '.',
-				decimal: true,
-				newNumber: false
-			});
-		} else if (prevNumbersClicked.toString().length < 8 && num != '+/-') {
-			this.setState({
-				result: prevNumbersClicked + String(num),
-				newNumber: false
-			});
-		} else if (num === '+/-' && prevNumbersClicked != 0) {
-      var multiplicativeInverse = Number(prevNumbersClicked)*(-1);
+      this.setState({
+        result: num,
+        newNumber: false
+      });
+    } else if (num === '.' && !this.state.decimal) {
+      this.setState({
+        result: prevNumbersClicked + '.',
+        decimal: true,
+        newNumber: false
+      });
+    } else if (prevNumbersClicked.toString().length < 8 && num != '+/-') {
+      this.setState({
+        result: prevNumbersClicked + String(num),
+        newNumber: false
+      });
+    } else if (num === '+/-' && prevNumbersClicked != 0) {
+      var multiplicativeInverse = Number(prevNumbersClicked) * (-1);
       this.setState({
         result: multiplicativeInverse,
-				newNumber: false
+        newNumber: false
       });
     }
-	}
+  }
 
-	renderNumberButton(num) {
-		return <Numbers onClickEvent={this.handleNumberClick} value={num} />;
-	}
+  renderNumberButton(num) {
+    return <Numbers onClickEvent={this.handleNumberClick} value={num} />;
+  }
 
-	handleSignClick(sign) {
-		if (!this.state.sign) {
-			this.setState({
-				sign: sign,
+  handleSignClick(sign) {
+    if (!this.state.sign) {
+      this.setState({
+        sign: sign,
         newNumber: true,
-				firstNumber: this.state.result,
-				result: 0
-			});
-		} else {
+        firstNumber: this.state.result,
+        result: 0
+      });
+    } else {
       var secondNumber = this.state.result;
       var finalResult = eval(Number(this.state.firstNumber) + this.state.sign + Number(this.state.result))
-			this.setState({
-				result: finalResult,
-				sign: sign,
-				decimal: false,
-        newNumber: true
-			})
       this.setState({
-        firstNumber: finalResult, 
+        result: finalResult,
+        sign: sign,
+        decimal: false,
+        newNumber: true
       })
-        if (sign === '=') {
-          this.setState({
-            sign: null
-          })
-        };
-        if (this.state.result) {
-          let numberPrecised = this.state.result.toPrecision(6)
-        }
-    
-		}
-	}
+      this.setState({
+        firstNumber: finalResult,
+      })
+      if (sign === '=') {
+        this.setState({
+          sign: null
+        })
+      };
+      if (this.state.result) {
+        let numberPrecised = this.state.result.toPrecision(6)
+      }
 
-	renderSignButton(sign) {
-		return <Operators onClickEvent={this.handleSignClick} sign={sign} />;
-	}
+    }
+  }
 
-	render() {
-		return (
-			<div
-				style={{
-					padding: '10px',
+  renderSignButton(sign) {
+    return <Operators onClickEvent={this.handleSignClick} sign={sign} />;
+  }
+
+  render() {
+    return (
+      <div
+        style={{
+          padding: '10px',
           marginRight: '850px',
           backgroundColor: 'black',
           borderStyle: 'solid',
           borderColor: 'green'
-				}}
-			>
-				<div
-					style={{
-						display: 'flex'
-					}}
-				>
-					<Result value={this.state.result} />
-				</div>
+        }}
+      >
+        <div
+          style={{
+            display: 'flex'
+          }}
+        >
+          <Result value={this.state.result} />
+        </div>
 
-				<div
-					style={{
-						display: 'flex'
-					}}
-				>
-					{this.renderNumberButton(1)}
-					{this.renderNumberButton(2)}
-					{this.renderNumberButton(3)}
-					{this.renderSignButton('+')}
-				</div>
+        <div
+          style={{
+            display: 'flex'
+          }}
+        >
+          {this.renderNumberButton(1)}
+          {this.renderNumberButton(2)}
+          {this.renderNumberButton(3)}
+          {this.renderSignButton('+')}
+        </div>
 
-				<div
-					style={{
-						display: 'flex'
-					}}
-				>
-					{this.renderNumberButton(4)}
-					{this.renderNumberButton(5)}
-					{this.renderNumberButton(6)}
-					{this.renderSignButton('-')}
-				</div>
-				<div
-					style={{
-						display: 'flex'
-					}}
-				>
-					{this.renderNumberButton(7)}
-					{this.renderNumberButton(8)}
-					{this.renderNumberButton(9)}
-					{this.renderSignButton('*')}
-				</div>
+        <div
+          style={{
+            display: 'flex'
+          }}
+        >
+          {this.renderNumberButton(4)}
+          {this.renderNumberButton(5)}
+          {this.renderNumberButton(6)}
+          {this.renderSignButton('-')}
+        </div>
+        <div
+          style={{
+            display: 'flex'
+          }}
+        >
+          {this.renderNumberButton(7)}
+          {this.renderNumberButton(8)}
+          {this.renderNumberButton(9)}
+          {this.renderSignButton('*')}
+        </div>
 
-				<div
-					style={{
-						display: 'flex'
-					}}
-				>
-					{this.renderNumberButton('.')}
-					{this.renderNumberButton(0)}
-					{this.renderNumberButton('+/-')}
-					{this.renderSignButton('/')}
-				</div>
+        <div
+          style={{
+            display: 'flex'
+          }}
+        >
+          {this.renderNumberButton('.')}
+          {this.renderNumberButton(0)}
+          {this.renderNumberButton('+/-')}
+          {this.renderSignButton('/')}
+        </div>
 
-				<div
-					style={{
-						display: 'flex'
-					}}
-				>
-					<Clear onClickEvent={this.handleClearClick} />
-					{this.renderSignButton('=')}
-				</div>
-			</div>
-		);
-	}
+        <div
+          style={{
+            display: 'flex'
+          }}
+        >
+          <Clear onClickEvent={this.handleClearClick} />
+          {this.renderSignButton('=')}
+        </div>
+      </div>
+    );
+  }
 }
 
 export default Calculator;
