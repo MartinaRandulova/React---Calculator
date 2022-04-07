@@ -14,3 +14,13 @@ main {
   font-size: 50px;
   padding-right: 10px;
 }
+
+.number {
+  background-color: #70587C;
+  color: white;
+  border-color: 502F4C;
+  height: 70px;
+  width: 70px;
+  text-align: center;
+  font-size: 40px;
+}
