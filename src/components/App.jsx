@@ -10,18 +10,7 @@ class Result extends React.Component {
 class Clear extends React.Component {
   render() {
     return (
-      <button
-        style={{
-          backgroundColor: '#F9F4F5',
-          color: 'black',
-          borderColor: '#502F4C',
-          height: '70px',
-          width: '210px',
-          textAlign: 'center',
-          fontSize: '35px'
-        }}
-        onClick={this.props.onClickEvent}
-      >
+      <button className='clear' onClick={this.props.onClickEvent}>
         clear
       </button>
     );
@@ -41,18 +30,7 @@ class Numbers extends React.Component {
 class Operators extends React.Component {
   render() {
     return (
-      <button
-        style={{
-          backgroundColor: '#C8B8DB',
-          color: 'black',
-          borderColor: '502F4C',
-          height: '70px',
-          width: '70px',
-          textAlign: 'center',
-          fontSize: '50px'
-        }}
-        onClick={() => this.props.onClickEvent(this.props.sign)}
-      >
+      <button className='operators' onClick={() => this.props.onClickEvent(this.props.sign)}>
         {this.props.sign}
       </button>
     );
@@ -153,71 +131,40 @@ class Calculator extends React.Component {
 
   render() {
     return (
-      <div
-        style={{
-          padding: '10px',
-          marginRight: '850px',
-          backgroundColor: 'black',
-          borderStyle: 'solid',
-          borderColor: 'green'
-        }}
-      >
-        <div
-          style={{
-            display: 'flex'
-          }}
-        >
+      <div className='container'>
+        <div>
           <Result value={this.state.result} />
         </div>
 
-        <div
-          style={{
-            display: 'flex'
-          }}
-        >
+        <div>
           {this.renderNumberButton(1)}
           {this.renderNumberButton(2)}
           {this.renderNumberButton(3)}
           {this.renderSignButton('+')}
         </div>
 
-        <div
-          style={{
-            display: 'flex'
-          }}
-        >
+        <div>
           {this.renderNumberButton(4)}
           {this.renderNumberButton(5)}
           {this.renderNumberButton(6)}
           {this.renderSignButton('-')}
         </div>
-        <div
-          style={{
-            display: 'flex'
-          }}
-        >
+        
+        <div>
           {this.renderNumberButton(7)}
           {this.renderNumberButton(8)}
           {this.renderNumberButton(9)}
           {this.renderSignButton('*')}
         </div>
 
-        <div
-          style={{
-            display: 'flex'
-          }}
-        >
+        <div>
           {this.renderNumberButton('.')}
           {this.renderNumberButton(0)}
           {this.renderNumberButton('+/-')}
           {this.renderSignButton('/')}
         </div>
 
-        <div
-          style={{
-            display: 'flex'
-          }}
-        >
+        <div>
           <Clear onClickEvent={this.handleClearClick} />
           {this.renderSignButton('=')}
         </div>
