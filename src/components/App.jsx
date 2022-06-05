@@ -132,42 +132,25 @@ class Calculator extends React.Component {
   render() {
     return (
       <div className='container'>
-        <div>
           <Result value={this.state.result} />
-        </div>
-
-        <div>
           {this.renderNumberButton(1)}
           {this.renderNumberButton(2)}
           {this.renderNumberButton(3)}
           {this.renderSignButton('+')}
-        </div>
-
-        <div>
           {this.renderNumberButton(4)}
           {this.renderNumberButton(5)}
           {this.renderNumberButton(6)}
           {this.renderSignButton('-')}
-        </div>
-        
-        <div>
           {this.renderNumberButton(7)}
           {this.renderNumberButton(8)}
           {this.renderNumberButton(9)}
           {this.renderSignButton('*')}
-        </div>
-
-        <div>
-          {this.renderNumberButton('.')}
-          {this.renderNumberButton(0)}
           {this.renderNumberButton('+/-')}
+          {this.renderNumberButton(0)}
+          {this.renderNumberButton('.')}
           {this.renderSignButton('/')}
-        </div>
-
-        <div>
           <Clear onClickEvent={this.handleClearClick} />
           {this.renderSignButton('=')}
-        </div>
       </div>
     );
   }
