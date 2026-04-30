@@ -1,15 +1,12 @@
-import reactRefresh from '@vitejs/plugin-react-refresh'
+const reactRefresh = require('@vitejs/plugin-react-refresh')
 
 /**
  * https://vitejs.dev/config/
  * @type { import('vite').UserConfig }
  */
-export default {
+module.exports = {
   plugins: [reactRefresh()],
   server: {
-    host: '0.0.0.0',
-    hmr: {
-      port: 443,
-    }
+    host: '127.0.0.1',
   }
 }
